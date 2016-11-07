@@ -1,0 +1,4 @@
+athena.lock
+docs/_book/
+.gradle/
+example-tests/build/

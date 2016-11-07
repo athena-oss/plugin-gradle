@@ -1,0 +1,23 @@
+language: node_js
+node_js:
+- stable
+services:
+- docker
+before_script:
+- npm install -g gitbook-cli
+- mkdir -p /opt/athena
+- wget -qO- "https://github.com/athena-oss/athena/archive/v0.8.0.tar.gz" | tar --strip-components
+  1 -zx -C "/opt/athena"
+- ln -s "$TRAVIS_BUILD_DIR" "/opt/athena/plugins/gradle"
+- touch /opt/athena/plugins/base/athena.lock
+- export PATH=$PATH:/opt/athena
+script:
+- athena gradle exec example-tests/ test
+after_success:
+- docs/publish_docs
+cache:
+  directories:
+  - $(npm config get prefix)/bin/gitbook
+env:
+  global:
+    secure: KpcLuEIP0iC9WhljwJnyRhLLWiM40KuYqhfzriChx0BcGA5NqTKxcueesdMyNDHA+JzsgLRtHt0CclqF9lKwAFz+urFwYasG5/P1kf2rAeyPuk7Lu9m/bjOKC4k+hj3pWW0Zwsn8D2jv7DASoYggbGqsEiko2BTT8LMHLW/Y1Zd6HKvG+OyFWVH76zuuwoIi5076FlCnVaLIkqPU5XRAn93Z5W5SfAc2BF/0QhGiUMfTGzAxhgkjsIuMF4CvoOrTGG/paAsw7NfZOC2tKiawk6G6RfPk3Sno0nYNjKcamDPOIkisUw1GbsjZgCxTUHjjsWnohXgprrwjEctEFKv4AVKzZrkLagpm9FEY58RL/PLaSNQsy0UUZunONsgsSjDkiFL/sYnem7+ilzAMbFO2O0wEvGkerG/A8Hc0PCsWheC1/GIiHDMd7IAI9JYeRFyw9M8nkQmJZT86nIQX9i6s9WiONCwMECgf3B35z7/Gl9/A0GSKZaVrZDFl4Bqa7wFTz5wcQKusJ43DEy65oPe6f5fxaKS79UUtXiZWSvWRzMNZkcqT5G7lpghW19gNDbqWeyDYzbRsz1ypyxIr38Ab6mESb4hW3TVRctL8Mlq4yUoCOPc5ueCBuk+UftGWzge633ndhhEBX99DIlb+4Og2Hgame2k1c5yLMw5pX2faUEA=
