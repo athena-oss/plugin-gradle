@@ -2,12 +2,12 @@
 <!DOCTYPE HTML>
 <html lang="" >
     <head>
-        <title>Change Java Version · GitBook</title>
         <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
+        <title>Change Java Version · GitBook</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
-        <meta name="generator" content="GitBook 3.2.0">
+        <meta name="generator" content="GitBook 3.2.2">
         
         
         
@@ -204,15 +204,23 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h1 id="change-java-version">Change Java Version</h1><p>To switch Java versions is pretty straight forward:</p><pre><code>$ # get a list of supported versions
+                                <h1 id="change-java-version">Change Java Version</h1>
+<p>To switch Java versions is pretty straight forward:</p>
+<pre><code>$ # get a list of supported versions
 $ athena gradle exec --list-java-versions
 
 $ # execute your task
-$ athena gradle exec my-project/ test --java-version=oracle-8jdk</code></pre>
-<h1 id="configure-the-environment">Configure the Environment</h1><p>The container where your gradle project runs is configurable; specify a environment file using <code>--athena-env=&lt;file_path&gt;</code> with custom settings.</p><p>One of the situations where you would have a custom environment: Android project.</p><p>An example of a environment file:</p><pre><code>GRADLE_VERSION=3.1
+$ athena gradle exec my-project/ test --java-version=oracle-8jdk
+</code></pre><h1 id="configure-the-environment">Configure the Environment</h1>
+<p>The container where your gradle project runs is configurable; specify a environment file using <code>--athena-env=&lt;file_path&gt;</code> with custom settings.</p>
+<p>One of the situations where you would have a custom environment: Android project.</p>
+<p>An example of a environment file:</p>
+<pre><code>GRADLE_VERSION=3.1
 ANDROID_SDK_URL=http://dl.google.com/android/android-sdk_r24.4.1-linux.tgz
-ANDROID_DEPENDENCIES=extra-android-support,extra-google-support,extra-google-google_play_services,extra-google-m2repository,extra-android-m2repository</code></pre>
-<p>This assures you have everything you need for your Android project.</p><p><strong>NOTE:</strong> If your gradle build file already solves the SDK dependencies, you won&apos;t need to specify <code>ANDROID_DEPENDENCIES</code>.</p>
+ANDROID_DEPENDENCIES=extra-android-support,extra-google-support,extra-google-google_play_services,extra-google-m2repository,extra-android-m2repository
+</code></pre><p>This assures you have everything you need for your Android project.</p>
+<p><strong>NOTE:</strong> If your gradle build file already solves the SDK dependencies, you won&apos;t need to specify <code>ANDROID_DEPENDENCIES</code>.</p>
+
                                 
                                 </section>
                             
@@ -255,7 +263,7 @@ ANDROID_DEPENDENCIES=extra-android-support,extra-google-support,extra-google-goo
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Change Java Version","level":"1.2","depth":1,"next":{"title":"Configure the Environment","level":"1.3","depth":1,"anchor":"#configure-the-environment","path":"getting-started.md","ref":"getting-started.md#configure-the-environment","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started.md","mtime":"2016-11-07T15:16:55.000Z","type":"markdown"},"gitbook":{"version":"3.2.0","time":"2016-11-07T15:40:12.625Z"},"basePath":".","book":{"language":""}});
+            gitbook.page.hasChanged({"page":{"title":"Change Java Version","level":"1.2","depth":1,"next":{"title":"Configure the Environment","level":"1.3","depth":1,"anchor":"#configure-the-environment","path":"getting-started.md","ref":"getting-started.md#configure-the-environment","articles":[]},"previous":{"title":"Introduction","level":"1.1","depth":1,"path":"README.md","ref":"README.md","articles":[]},"dir":"ltr"},"config":{"gitbook":"*","theme":"default","variables":{},"plugins":[],"pluginsConfig":{"highlight":{},"search":{},"lunr":{"maxIndexSize":1000000,"ignoreSpecialCharacters":false},"sharing":{"facebook":true,"twitter":true,"google":false,"weibo":false,"instapaper":false,"vk":false,"all":["facebook","google","twitter","weibo","instapaper"]},"fontsettings":{"theme":"white","family":"sans","size":2},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false}},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"pdf":{"pageNumbers":true,"fontSize":12,"fontFamily":"Arial","paperSize":"a4","chapterMark":"pagebreak","pageBreaksBefore":"/","margin":{"right":62,"left":62,"top":56,"bottom":56}},"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"}},"file":{"path":"getting-started.md","mtime":"2016-11-07T15:43:09.602Z","type":"markdown"},"gitbook":{"version":"3.2.2","time":"2016-11-07T15:45:16.068Z"},"basePath":".","book":{"language":""}});
         });
     </script>
 </div>
