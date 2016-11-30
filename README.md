@@ -8,17 +8,29 @@ To find out more about on how to manage Android devices using Athena refer to [A
 
 ## How to Install ?
 
-To install run the following command:
+**On Linux**
+
+* Using `apt-get` :
 
 ```bash
-$ athena plugins install gradle https://github.com/athena-oss/plugin-gradle.git
+$ sudo add-apt-repository ppa:athena-oss/athena
+$ sudo apt-get update
+$ sudo apt-get install athena-plugin-gradle
 ```
 
-### On MAC OSX Use [Homebrew](http://brew.sh/):
+**On MAC OSX**
+
+* Using [Homebrew](http://brew.sh/) :
 
 ```bash
 $ brew tap athena-oss/tap
 $ brew install plugin-gradle
+```
+
+**Alternative**
+
+```bash
+$ athena plugins install gradle https://github.com/athena-oss/plugin-gradle.git
 ```
 
 Read the [Documentation](http://athena-oss.github.io/plugin-gradle) on using Athena.
