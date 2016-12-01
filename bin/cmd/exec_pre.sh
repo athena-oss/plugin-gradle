@@ -22,6 +22,15 @@ fi
 project_dir="$(athena.path 1)"
 athena.pop_args 1
 
+if athena.arg_exists "--with-avd"; then
+	connection_target="$(athena.argument.get_argument --with-avd)"
+	athena.info "Discovering '${connection_target}'..."
+	if athena.docker.is_container_running "$connection_target"; then
+		athena.info "Linking with '${connection_target}' container..."
+		athena.docker.add_option "--link ${connection_target}:${connection_target}"
+	fi
+fi
+
 if ! athena.plugin.is_environment_specified; then
 	athena.docker.volume_exists_or_create "athena_cache_android"
 	athena.docker.add_option "-v athena_cache_android:/opt/android-sdk"
