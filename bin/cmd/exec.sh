@@ -6,10 +6,13 @@ if athena.argument.argument_exists_and_remove "--with-avd" "connection_target"; 
 	if ! adb connect "$connection_target" 1>/dev/null; then
 		athena.exit_with_msg "Failed to connect with $connection_target device..."
 	fi
+	athena.info "Waiting for connection to be established..."
+	sleep 3
 	athena.info "Tweaking device settings..."
 	adb shell settings put global window_animation_scale 0
 	adb shell settings put global transition_animation_scale 0
 	adb shell settings put global animator_duration_scale 0
+	athena.info "Waiting for device to be ready after the tweaks..."
 	sleep 3
 fi
 
