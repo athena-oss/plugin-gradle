@@ -22,6 +22,7 @@ fi
 project_dir="$(athena.path 1)"
 athena.pop_args 1
 
+# check if the user wants to link with a device
 if athena.arg_exists "--with-avd"; then
 	connection_target="$(athena.argument.get_argument --with-avd)"
 	athena.info "Discovering '${connection_target}'..."
@@ -31,15 +32,22 @@ if athena.arg_exists "--with-avd"; then
 	fi
 fi
 
+# try linking with appium and selenium hub
+athena.plugins.gradle.try_to_auto_link_containers "appium" "athena-appium"
+athena.plugins.gradle.try_to_auto_link_containers "hub" "athena-selenium-hub"
+
 if ! athena.plugin.is_environment_specified; then
 	athena.docker.volume_exists_or_create "athena_cache_android"
 	athena.docker.add_option "-v athena_cache_android:/opt/android-sdk"
 fi
 
+# handle java version selection
 java_version="openjdk-latest"
 athena.argument.argument_exists_and_remove "--java-version" "java_version"
 athena.plugin.use_container "java-${java_version}"
 
+# In Mac OS we run gradle against a rsynced directory to avoid the bad performance
+# of docker for mac OXFS
 if athena.os.is_mac && ! athena.argument.argument_exists_and_remove "--skip-sync"; then
 	athena.docker.add_env "ATHENA_SYNC_FROM_DIR" "/opt/project"
 	athena.docker.mount_dir "$project_dir" "/opt/project"
@@ -49,5 +57,6 @@ else
 	athena.docker.mount_dir "$project_dir" "/opt/tests"
 fi
 
+# persistent cache volume for gradle packages
 athena.docker.volume_exists_or_create "athena_cache_gradle_home"
 athena.docker.add_option "-v athena_cache_gradle_home:/root/.gradle"
