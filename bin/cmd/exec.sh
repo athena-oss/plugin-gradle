@@ -36,3 +36,5 @@ fi
 
 athena.info "Running command: $command $(athena.args)"
 $command $(athena.args)
+
+cp -r /opt/tests/app/build/reports /opt/project/app/build/reports
