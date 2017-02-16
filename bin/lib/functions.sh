@@ -28,7 +28,7 @@ function athena.plugins.gradle.try_to_auto_link_containers()
 			old_plg="$(athena.plugin.get_plg)"
 			athena.plugin.require "appium" "0.3.0"
 			athena.plugin.set_plugin "appium"
-			container_name=$(athena.plugin.get_container_name)
+			container_name="$(athena.plugin.get_container_name)"
 			athena.plugin.set_plugin "$old_plg"
 			;;
 		hub )
@@ -49,5 +49,5 @@ function athena.plugins.gradle.try_to_auto_link_containers()
 	fi
 
 	athena.color.print_info "Auto linking with $type container '${container_name}'..."
-	athena.docker.add_option "--link ${container_name}:${link_name}"
+	athena.docker.add_option --link "${container_name}:${link_name}"
 }

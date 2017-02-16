@@ -17,12 +17,14 @@ if athena.argument.argument_exists_and_remove "--with-avd" "connection_target"; 
 fi
 
 if [[ -n "$ATHENA_SYNC_FROM_DIR" ]]; then
-	athena.info "Synchronizing cached project dir..."
-	extra_opts=
+	athena.info "Tests directory sync is active..."
+	extra_opts=()
 	if [[ -f "${ATHENA_SYNC_FROM_DIR}/.athenaignore" ]]; then
-		extra_opts="--exclude-from ${ATHENA_SYNC_FROM_DIR}/.athenaignore"
+		athena.info "Found .athenaignore. Reading it..."
+		extra_opts+=(--exclude-from "${ATHENA_SYNC_FROM_DIR}/.athenaignore")
 	fi
-	rsync -a --info=progress2 $extra_opts ${ATHENA_SYNC_FROM_DIR}/* /opt/tests
+	athena.info "Starting automatic sync..."
+	rsync -a --info=progress2 "${extra_opts[@]}" ${ATHENA_SYNC_FROM_DIR}/* /opt/tests
 fi
 
 cd /opt/tests
@@ -34,5 +36,9 @@ else
 	command="gradle"
 fi
 
-athena.info "Running command: $command $(athena.args)"
-$command $(athena.args)
+arguments=()
+athena.argument.get_arguments "arguments"
+
+athena.info "Running command: $command ${arguments[*]}"
+"$command" "${arguments[@]}"
+
