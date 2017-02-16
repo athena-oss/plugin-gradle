@@ -16,6 +16,10 @@ if athena.argument.argument_exists_and_remove "--with-avd" "connection_target"; 
 	sleep 3
 fi
 
+if [[ ! -d "$PROJECT_DIR_IN_CONTAINER" ]]; then
+	mkdir -p "$PROJECT_DIR_IN_CONTAINER"
+fi
+
 if [[ -n "$ATHENA_SYNC_FROM_DIR" ]]; then
 	athena.info "Tests directory sync is active..."
 	extra_opts=()
@@ -23,11 +27,12 @@ if [[ -n "$ATHENA_SYNC_FROM_DIR" ]]; then
 		athena.info "Found .athenaignore. Reading it..."
 		extra_opts+=(--exclude-from "${ATHENA_SYNC_FROM_DIR}/.athenaignore")
 	fi
-	athena.info "Starting automatic sync..."
-	rsync -a --info=progress2 "${extra_opts[@]}" ${ATHENA_SYNC_FROM_DIR}/* /opt/tests
+	athena.info "Synching: [host] -> [container] ..."
+	athena.debug "Synching: [host] '${ATHENA_SYNC_FROM_DIR}' -> [container] '${PROJECT_DIR_IN_CONTAINER}'..."
+	rsync -a --info=progress2 "${extra_opts[@]}" "${ATHENA_SYNC_FROM_DIR}"/. "$PROJECT_DIR_IN_CONTAINER"
 fi
 
-cd /opt/tests
+cd "$PROJECT_DIR_IN_CONTAINER"
 
 command=
 if [[ -f ./gradlew ]] && ! athena.argument.argument_exists_and_remove "--skip-gradlew"; then
@@ -41,4 +46,17 @@ athena.argument.get_arguments "arguments"
 
 athena.info "Running command: $command ${arguments[*]}"
 "$command" "${arguments[@]}"
+
+if [[ -n "$ATHENA_SYNC_FROM_DIR" ]]; then
+	athena.info "Tests directory sync is active..."
+	extra_opts=()
+	if [[ -f "${ATHENA_SYNC_FROM_DIR}/.athenaignore" ]]; then
+		athena.info "Found .athenaignore. Reading it..."
+		extra_opts+=(--exclude-from "${ATHENA_SYNC_FROM_DIR}/.athenaignore")
+	fi
+
+	athena.info "Synching: [container] -> [host] ..."
+	athena.debug "Synching: [container] '${PROJECT_DIR_IN_CONTAINER}' -> [host] '${ATHENA_SYNC_FROM_DIR}'..."
+	rsync -a --info=progress2 "${extra_opts[@]}" "$PROJECT_DIR_IN_CONTAINER"/* "$ATHENA_SYNC_FROM_DIR"
+fi
 

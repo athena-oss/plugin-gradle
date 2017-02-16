@@ -10,5 +10,4 @@ function _remove_volume_if_exists()
 
 athena.info "Removing all caches..."
 _remove_volume_if_exists "athena_cache_android"
-_remove_volume_if_exists "athena_cache_gradle_project"
 _remove_volume_if_exists "athena_cache_gradle_home"
